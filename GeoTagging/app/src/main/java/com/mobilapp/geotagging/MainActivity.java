@@ -19,7 +19,7 @@ this document, the course academic policy on the
 course website on Blackboard, and the UMass Lowell
 academic code.
 Date:
-Name:
+Name: luiz
 */
 
 package com.mobilapp.geotagging;
