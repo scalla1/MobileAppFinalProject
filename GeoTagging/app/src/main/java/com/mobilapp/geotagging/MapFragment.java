@@ -3,10 +3,12 @@ package com.mobilapp.geotagging;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,7 +62,13 @@ public class MapFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
+        //AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+        //        AppDatabase.class, "database-name").build();
 
+
+        TextView tv = view.findViewById(R.id.mainText);
+
+        //tv.setText("");
 
         // Inflate the layout for this fragment
         return view;
