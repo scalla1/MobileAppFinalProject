@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey;
 public class Tag {
 
     //used to make location objects in FusedLocationProvider
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public int tid;
 
     /*First declare Location object by doing
@@ -23,7 +23,23 @@ public class Tag {
     @ColumnInfo(name = "longitude")
     public double longitude;
 
+
     /* set latitude with myLocation.setLongitude(latitude) */
     @ColumnInfo(name = "latitude")
     public double latitude;
+
+    @ColumnInfo(name = "distance")
+    public double distance;
+
+    Tag() {
+
+    }
+
+    Tag(String name, double longit, double latit) {
+        tagName = name;
+        longitude = longit;
+        latitude = latit;
+    }
+
+
 }

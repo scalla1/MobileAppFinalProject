@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link MapFragment#newInstance} factory method to
@@ -62,15 +64,27 @@ public class MapFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
-        //AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-        //        AppDatabase.class, "database-name").build();
+        AppDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), AppDatabase.class, "database1").allowMainThreadQueries().build();
 
+
+        TagDao tagDao = db.tagDao();
+
+        Tag newTag = new Tag((String) "fafd", (double) 111.0, (double) 1111.0);
+
+        tagDao.insertNewTag(newTag);
+
+        List<Tag> tags = tagDao.getAll();
 
         TextView tv = view.findViewById(R.id.mainText);
+
+        tv.setText(tags.get(0).tagName);
+
+
 
         //tv.setText("");
 
         // Inflate the layout for this fragment
         return view;
     }
+
 }
