@@ -56,5 +56,6 @@ public class MainActivity extends AppCompatActivity {
         locationRequest.setFastestInterval(5000);
 
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+
     }
 }
