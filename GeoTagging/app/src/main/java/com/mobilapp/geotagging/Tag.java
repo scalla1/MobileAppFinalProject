@@ -26,4 +26,5 @@ public class Tag {
     /* set latitude with myLocation.setLongitude(latitude) */
     @ColumnInfo(name = "latitude")
     public double latitude;
+
 }

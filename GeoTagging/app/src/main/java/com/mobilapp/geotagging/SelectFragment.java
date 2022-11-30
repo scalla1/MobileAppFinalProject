@@ -27,7 +27,7 @@ public class SelectFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private HashMap<CheckBox,Integer> databaseKeys;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -62,25 +62,9 @@ public class SelectFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        databaseKeys=new HashMap<CheckBox,Integer>();
-        //TODO: Populate tags_display with elements.
-        //> Add the checkbox of each tag display to databaseKeys, mapped to the appropriate tag id.
 
-        //TODO: Add click listeners to each button.
     }
 
-    public Integer[] getSelectedTagIDs()
-    {
-        Vector<Integer> result=new Vector<Integer>();
-        for(CheckBox x:databaseKeys.keySet())
-        {
-            if(x.isChecked())
-            {
-                result.add(databaseKeys.get(x));
-            }
-        }
-        return (Integer[]) result.toArray();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

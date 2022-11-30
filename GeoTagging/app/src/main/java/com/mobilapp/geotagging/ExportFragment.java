@@ -7,6 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+
+import java.util.HashMap;
+import java.util.Vector;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +27,8 @@ public class ExportFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private HashMap<CheckBox,Integer> databaseKeys;
 
     public ExportFragment() {
         // Required empty public constructor
@@ -59,6 +65,25 @@ public class ExportFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        databaseKeys=new HashMap<CheckBox,Integer>();
+        //TODO: Populate tags_display with elements.
+        //> Add the checkbox of each tag display to databaseKeys, mapped to the appropriate tag id.
+
+        //TODO: Add click listeners to each button.
         return inflater.inflate(R.layout.fragment_export, container, false);
+    }
+
+
+    public Integer[] getSelectedTagIDs()
+    {
+        Vector<Integer> result=new Vector<Integer>();
+        for(CheckBox x:databaseKeys.keySet())
+        {
+            if(x.isChecked())
+            {
+                result.add(databaseKeys.get(x));
+            }
+        }
+        return (Integer[]) result.toArray();
     }
 }
