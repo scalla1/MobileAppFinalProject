@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.mobilapp.geotagging.MapFragment"
+        android:name="com.mobilapp.geotagging.MapsFragment"
         android:label="fragment_map"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_maps" />
     <fragment
         android:id="@+id/selectFragment"
         android:name="com.mobilapp.geotagging.SelectFragment"

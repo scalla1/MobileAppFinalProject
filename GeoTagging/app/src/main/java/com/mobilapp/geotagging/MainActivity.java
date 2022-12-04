@@ -19,7 +19,7 @@ this document, the course academic policy on the
 course website on Blackboard, and the UMass Lowell
 academic code.
 Date:
-Name:
+Name: luiz
 */
 
 package com.mobilapp.geotagging;
@@ -56,5 +56,6 @@ public class MainActivity extends AppCompatActivity {
         locationRequest.setFastestInterval(5000);
 
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+
     }
 }
