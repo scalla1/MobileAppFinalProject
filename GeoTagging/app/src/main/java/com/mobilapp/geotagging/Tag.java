@@ -40,6 +40,4 @@ public class Tag {
         longitude = longit;
         latitude = latit;
     }
-
-
 }

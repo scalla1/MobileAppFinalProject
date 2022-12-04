@@ -17,4 +17,5 @@ public interface TagDao {
 
     @Insert
     public void insertNewTag(Tag tag);
+
 }
