@@ -3,6 +3,7 @@ package com.mobilapp.geotagging;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -111,9 +112,9 @@ public class ExportFragment extends Fragment {
     }
 
 
-    public Integer[] getSelectedTagIDs()
+    public ArrayList<Integer> getSelectedTagIDs()
     {
-        Vector<Integer> result=new Vector<Integer>();
+        ArrayList<Integer> result=new ArrayList<>();
         for(CheckBox x:databaseKeys.keySet())
         {
             if(x.isChecked())
@@ -121,6 +122,6 @@ public class ExportFragment extends Fragment {
                 result.add(databaseKeys.get(x));
             }
         }
-        return (Integer[]) result.toArray();
+        return result;
     }
 }
