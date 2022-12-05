@@ -7,6 +7,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.room.Database;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+
+import com.mobilapp.geotagging.databinding.FragmentEditBinding;
+import com.mobilapp.geotagging.databinding.FragmentFindAddressBinding;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +31,7 @@ public class EditFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private FragmentEditBinding binding;
 
     public EditFragment() {
         // Required empty public constructor
@@ -58,7 +67,21 @@ public class EditFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit, container, false);
+        binding = FragmentEditBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+
+
+        // make database (might have to pass between fragments)
+        AppDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), AppDatabase.class, "database1").allowMainThreadQueries().build();
+
+        TagDao tagDao = db.tagDao(); // get tagDao (data access object)
+
+        Tag tag = tagDao.getTagByID(1); // get specific tag
+
+        binding.editTextTagName.setText(tag.tagName);
+        binding.editTextLatitude.setText(String.valueOf(tag.latitude));
+        binding.editTextLongitude.setText(String.valueOf(tag.longitude));
+
+        return view;
     }
 }
