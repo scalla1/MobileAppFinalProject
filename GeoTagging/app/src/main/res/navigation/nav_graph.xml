@@ -3,22 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/editFragment">
+    app:startDestination="@id/exportFragment">
 
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.mobilapp.geotagging.MapsFragment"
         android:label="fragment_map"
-        tools:layout="@layout/fragment_maps" />
+        tools:layout="@layout/fragment_maps" >
+        <argument
+            android:name="TagIDs"
+            app:argType="integer[]" />
+        <action
+            android:id="@+id/action_mapFragment_to_editFragment"
+            app:destination="@id/editFragment" />
+    </fragment>
     <fragment
         android:id="@+id/selectFragment"
         android:name="com.mobilapp.geotagging.SelectFragment"
         android:label="fragment_select"
-        tools:layout="@layout/fragment_select" >
-        <action
-            android:id="@+id/action_selectFragment_to_editFragment"
-            app:destination="@id/editFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_select" />
     <fragment
         android:id="@+id/editFragment"
         android:name="com.mobilapp.geotagging.EditFragment"
@@ -27,16 +30,36 @@
         <argument
             android:name="TagID"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_editFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_editFragment_to_exportFragment"
+            app:destination="@id/exportFragment" />
     </fragment>
     <fragment
         android:id="@+id/exportFragment"
         android:name="com.mobilapp.geotagging.ExportFragment"
         android:label="fragment_export"
-        tools:layout="@layout/fragment_export" />
+        tools:layout="@layout/fragment_export" >
+        <action
+            android:id="@+id/action_exportFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_exportFragment_to_findAddressFragment"
+            app:destination="@id/findAddressFragment" />
+        <action
+            android:id="@+id/action_exportFragment_to_editFragment"
+            app:destination="@id/editFragment" />
+    </fragment>
     <fragment
         android:id="@+id/findAddressFragment"
         android:name="com.mobilapp.geotagging.FindAddressFragment"
         android:label="fragment_find_address"
-        tools:layout="@layout/fragment_find_address" />
+        tools:layout="@layout/fragment_find_address" >
+        <action
+            android:id="@+id/action_findAddressFragment_to_editFragment"
+            app:destination="@id/editFragment" />
+    </fragment>
 
 </navigation>
