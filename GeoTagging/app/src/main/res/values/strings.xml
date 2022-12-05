@@ -3,4 +3,12 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="map">map fragment</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="findAddress">Enter the address of where you want to place your tag:</string>
+    <string name="findAddressHint">Enter Address</string>
+    <string name="makeTag">Make Tag</string>
+    <string name="tagName">Tag Name</string>
+    <string name="editFragmentTitle">Edit Tag</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="saveTag">Save Tag</string>
 </resources>

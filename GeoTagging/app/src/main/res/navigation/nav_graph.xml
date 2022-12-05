@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mapFragment">
+    app:startDestination="@id/editFragment">
 
     <fragment
         android:id="@+id/mapFragment"
@@ -23,11 +23,20 @@
         android:id="@+id/editFragment"
         android:name="com.mobilapp.geotagging.EditFragment"
         android:label="fragment_edit"
-        tools:layout="@layout/fragment_edit" />
+        tools:layout="@layout/fragment_edit" >
+        <argument
+            android:name="TagID"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/exportFragment"
         android:name="com.mobilapp.geotagging.ExportFragment"
         android:label="fragment_export"
         tools:layout="@layout/fragment_export" />
+    <fragment
+        android:id="@+id/findAddressFragment"
+        android:name="com.mobilapp.geotagging.FindAddressFragment"
+        android:label="fragment_find_address"
+        tools:layout="@layout/fragment_find_address" />
 
 </navigation>
