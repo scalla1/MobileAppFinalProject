@@ -3,6 +3,7 @@ package com.mobilapp.geotagging;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.room.Room;
 
 import android.view.LayoutInflater;
@@ -101,12 +102,59 @@ public class ExportFragment extends Fragment {
             newRow.addChildrenForAccessibility(children);
             edit_button.setOnClickListener((View myview)->
             {
-                //Transition to EditFragment,
+                NavHostFragment.findNavController(this).navigate(ExportFragmentDirections.actionExportFragmentToEditFragment(x.tid));
             });
         }
 
 
         //TODO: Add click listeners to each button.
+        binding.allButton.setOnClickListener((View myview)->
+                {
+                    for(CheckBox x:databaseKeys.keySet())
+                    {
+                        x.setChecked(true);
+                    }
+                }
+        );
+
+        binding.deleteButton.setOnClickListener((View myview) ->
+        {
+            ArrayList<Integer> toDelete=getSelectedTagIDs();
+            //TODO: Delete selected tags.
+
+            NavHostFragment.findNavController(this).navigate(ExportFragmentDirections.actionExportFragmentSelf());
+        });
+
+        binding.displayButton.setOnClickListener((View myview)->
+        {
+            ArrayList<Integer> toDisplayBase=getSelectedTagIDs();
+
+            int[] toDisplay=new int[toDisplayBase.size()];
+            for(int i=0;i<toDisplayBase.size();i++)
+            {
+                toDisplay[i]= toDisplayBase.get(i);
+            }
+
+            NavHostFragment.findNavController(this).navigate(ExportFragmentDirections.actionExportFragmentToMapFragment(toDisplay));
+        });
+
+        binding.exportButton.setOnClickListener((View myView)->
+        {
+            ArrayList<Integer> toExportKeys=getSelectedTagIDs();
+            String toExport="";
+            //Convert each tag to CSV format.
+            for(Integer x:toExportKeys)
+            {
+                Tag tag=tagDao.getTagByID(x);
+                toExport+=tag.tagName+",";
+                toExport+=tag.latitude+",";
+                toExport+=tag.longitude+",";
+                toExport+=tag.distance+";";
+            }
+
+            //TODO: Export this to a file.
+
+        });
 
         return view;
     }
