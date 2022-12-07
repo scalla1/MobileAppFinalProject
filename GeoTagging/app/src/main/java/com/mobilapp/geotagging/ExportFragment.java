@@ -18,7 +18,6 @@ import com.mobilapp.geotagging.databinding.FragmentExportBinding;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Vector;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,12 +28,8 @@ public class ExportFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private HashMap<CheckBox,Integer> databaseKeys;
 
@@ -56,8 +51,6 @@ public class ExportFragment extends Fragment {
     public static ExportFragment newInstance(String param1, String param2) {
         ExportFragment fragment = new ExportFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -66,8 +59,6 @@ public class ExportFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
             binding=FragmentExportBinding.inflate(getLayoutInflater());
         }
     }
@@ -91,7 +82,7 @@ public class ExportFragment extends Fragment {
             CheckBox checkBox=new CheckBox(getContext());
             checkBox.setText(x.tagName);
             Button edit_button=new Button(getContext());
-            edit_button.setText("Edit");
+            edit_button.setText(R.string.edit);
             databaseKeys.put(checkBox,x.tid);
             ArrayList<View> layoutArray=new ArrayList<>();
             layoutArray.add(newRow);
@@ -100,15 +91,13 @@ public class ExportFragment extends Fragment {
             children.add(checkBox);
             children.add(edit_button);
             newRow.addChildrenForAccessibility(children);
-            edit_button.setOnClickListener((View myview)->
-            {
-                NavHostFragment.findNavController(this).navigate(ExportFragmentDirections.actionExportFragmentToEditFragment(x.tid));
-            });
+            edit_button.setOnClickListener((View myView)->
+                    NavHostFragment.findNavController(this).navigate(ExportFragmentDirections.actionExportFragmentToEditFragment(x.tid)));
         }
 
 
         //TODO: Add click listeners to each button.
-        binding.allButton.setOnClickListener((View myview)->
+        binding.allButton.setOnClickListener((View myView)->
                 {
                     for(CheckBox x:databaseKeys.keySet())
                     {
@@ -117,7 +106,7 @@ public class ExportFragment extends Fragment {
                 }
         );
 
-        binding.deleteButton.setOnClickListener((View myview) ->
+        binding.deleteButton.setOnClickListener((View myView) ->
         {
             ArrayList<Integer> toDelete=getSelectedTagIDs();
             //TODO: Delete selected tags.
@@ -125,7 +114,7 @@ public class ExportFragment extends Fragment {
             NavHostFragment.findNavController(this).navigate(ExportFragmentDirections.actionExportFragmentSelf());
         });
 
-        binding.displayButton.setOnClickListener((View myview)->
+        binding.displayButton.setOnClickListener((View myView)->
         {
             ArrayList<Integer> toDisplayBase=getSelectedTagIDs();
 

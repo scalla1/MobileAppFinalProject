@@ -11,4 +11,5 @@
     <string name="latitude">Latitude</string>
     <string name="longitude">Longitude</string>
     <string name="saveTag">Save Tag</string>
+    <string name="edit">Edit</string>
 </resources>
