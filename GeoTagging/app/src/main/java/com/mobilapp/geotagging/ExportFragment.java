@@ -1,5 +1,6 @@
 package com.mobilapp.geotagging;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,9 @@ import android.widget.LinearLayout;
 
 import com.mobilapp.geotagging.databinding.FragmentExportBinding;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -142,6 +146,16 @@ public class ExportFragment extends Fragment {
             }
 
             //TODO: Export this to a file.
+            try {
+                FileOutputStream fos;
+                fos = getContext().openFileOutput(getString(R.string.export_filepath), Context.MODE_PRIVATE);
+                fos.write(toExport.getBytes());
+            }
+            catch(Exception e)
+            {
+                e.getStackTrace();
+            }
+
 
         });
 
