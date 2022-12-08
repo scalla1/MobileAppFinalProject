@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.room.Room;
 
+import android.os.Debug;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import android.widget.LinearLayout;
 
 import com.mobilapp.geotagging.databinding.FragmentExportBinding;
 
+import java.io.Console;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -81,20 +84,21 @@ public class ExportFragment extends Fragment {
         List<Tag> tags = tagDao.getAll(); // get all tags
         for(Tag x:tags)
         {
+            Log.d(ExportFragment.class.getSimpleName(), "Creating row for tag.");
             LinearLayout newRow=new LinearLayout(getContext());
-            newRow.setOrientation(LinearLayout.HORIZONTAL); //fix
+            newRow.setOrientation(LinearLayout.HORIZONTAL);
+            newRow.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             CheckBox checkBox=new CheckBox(getContext());
             checkBox.setText(x.tagName);
             Button edit_button=new Button(getContext());
             edit_button.setText(R.string.edit);
             databaseKeys.put(checkBox,x.tid);
-            ArrayList<View> layoutArray=new ArrayList<>();
-            layoutArray.add(newRow);
-            binding.tagsDisplay.addChildrenForAccessibility(layoutArray); //fix
-            ArrayList<View> children=new ArrayList<>();
-            children.add(checkBox);
-            children.add(edit_button);
-            newRow.addChildrenForAccessibility(children);
+            binding.tagsDisplay.addView(newRow);
+            newRow.setVisibility(View.VISIBLE);
+            newRow.addView(checkBox);
+            checkBox.setVisibility(View.VISIBLE);
+            newRow.addView(edit_button);
+            edit_button.setVisibility(View.VISIBLE);
             edit_button.setOnClickListener((View myView)->
                     NavHostFragment.findNavController(this).navigate(ExportFragmentDirections.actionExportFragmentToEditFragment(x.tid)));
         }
@@ -126,6 +130,11 @@ public class ExportFragment extends Fragment {
             for(int i=0;i<toDisplayBase.size();i++)
             {
                 toDisplay[i]= toDisplayBase.get(i);
+            }
+
+            if(toDisplay.length==0)
+            {
+                toDisplay=new int[]{-1};
             }
 
             NavHostFragment.findNavController(this).navigate(ExportFragmentDirections.actionExportFragmentToMapFragment(toDisplay));
