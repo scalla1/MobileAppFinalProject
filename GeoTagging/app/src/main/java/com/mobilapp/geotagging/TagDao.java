@@ -18,5 +18,8 @@ public interface TagDao {
     @Insert
     public void insertNewTag(Tag tag);
 
+    @Query("DELETE FROM Tag WHERE tid IN (:id)")
+    public void deleteTagAtID(int id);
+
 
 }
