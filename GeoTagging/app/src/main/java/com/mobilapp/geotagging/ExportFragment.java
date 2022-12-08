@@ -132,7 +132,7 @@ public class ExportFragment extends Fragment {
 
             for(Integer x:toDelete)
             {
-                tagDao.deleteTagAtID(x);
+                //tagDao.deleteTagAtID(x);
             }
 
             NavHostFragment.findNavController(this).navigate(ExportFragmentDirections.actionExportFragmentSelf());
