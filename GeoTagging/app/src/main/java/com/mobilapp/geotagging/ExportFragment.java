@@ -58,9 +58,7 @@ public class ExportFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            binding=FragmentExportBinding.inflate(getLayoutInflater());
-        }
+
     }
 
     @Override
@@ -68,7 +66,9 @@ public class ExportFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         databaseKeys=new HashMap<CheckBox,Integer>();
-        View view=inflater.inflate(R.layout.fragment_export, container, false);
+        binding=FragmentExportBinding.inflate(getLayoutInflater());
+
+        View view=binding.getRoot();
         //TODO: Populate tags_display with elements.
         //> Add the checkbox of each tag display to databaseKeys, mapped to the appropriate tag id.
         AppDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), AppDatabase.class, "database1").allowMainThreadQueries().build();
