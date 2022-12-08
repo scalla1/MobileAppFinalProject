@@ -82,6 +82,7 @@ public class ExportFragment extends Fragment {
 
         TagDao tagDao = db.tagDao(); // get tagDao (data access object)
         List<Tag> tags = tagDao.getAll(); // get all tags
+        Log.d(ExportFragment.class.getSimpleName(), "Loaded "+tags.size()+" tags.");
         for(Tag x:tags)
         {
             Log.d(ExportFragment.class.getSimpleName(), "Creating row for tag.");
