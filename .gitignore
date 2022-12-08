@@ -83,3 +83,5 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+GeoTagging/.idea/codeStyles/codeStyleConfig.xml
+GeoTagging/.idea/codeStyles/Project.xml
