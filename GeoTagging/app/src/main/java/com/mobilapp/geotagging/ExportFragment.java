@@ -85,13 +85,12 @@ public class ExportFragment extends Fragment {
         TagDao tagDao = db.tagDao(); // get tagDao (data access object)
         List<Tag> tags = tagDao.getAll(); // get all tags
         //Create a test tag.
-        if(tags.size()<10)
+        /*if(tags.size()<10)
         {
             Random rng=new Random();
             Tag newTag=new Tag("Test"+tags.size(), rng.nextDouble()*90, rng.nextDouble()*90 );
-            tags.add(newTag);
             tagDao.insertNewTag(newTag);
-        }
+        }*/
         for(Tag x:tags)
         {
             Log.d(ExportFragment.class.getSimpleName(), "Creating row for tag with id "+x.tid);
@@ -132,7 +131,7 @@ public class ExportFragment extends Fragment {
 
             for(Integer x:toDelete)
             {
-                //tagDao.deleteTagAtID(x);
+                tagDao.deleteTagAtID(x);
             }
 
             NavHostFragment.findNavController(this).navigate(ExportFragmentDirections.actionExportFragmentSelf());
