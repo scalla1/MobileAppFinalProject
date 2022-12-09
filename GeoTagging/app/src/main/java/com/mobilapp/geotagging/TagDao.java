@@ -1,6 +1,7 @@
 package com.mobilapp.geotagging;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -18,5 +19,7 @@ public interface TagDao {
     @Insert
     public void insertNewTag(Tag tag);
 
+    @Query("DELETE FROM Tag WHERE tid IN (:id)")
+    public void deleteTagAtID(int id);
 
 }
