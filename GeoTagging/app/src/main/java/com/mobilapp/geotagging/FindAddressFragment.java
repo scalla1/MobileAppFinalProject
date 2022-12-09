@@ -151,9 +151,24 @@ public class FindAddressFragment extends Fragment {
 
         binding.buttonCurrentLocation.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String addressForLocation = binding.editName.toString();
 
-                currentLocation = currentLocationTask.getResult();
+                String nameLocation = binding.editName.toString();
+                if (nameLocation == "") {
+                    Toast.makeText(binding.getRoot().getContext(), "Enter a name for your current location.", Toast.LENGTH_SHORT).show();
+
+                }
+
+                if (currentLocationTask.isSuccessful()) {
+                    currentLocation = currentLocationTask.getResult();
+                    Tag newTag = new Tag(nameLocation, currentLocation.getLongitude(), currentLocation.getLatitude());
+                    tagDao.insertNewTag(newTag);
+                } else {
+                    Toast.makeText(binding.getRoot().getContext(), "Error grabbing location. Try again.", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+
 
             }
         });
@@ -162,6 +177,11 @@ public class FindAddressFragment extends Fragment {
         return view;
     } // end on create view
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 
 
 }
