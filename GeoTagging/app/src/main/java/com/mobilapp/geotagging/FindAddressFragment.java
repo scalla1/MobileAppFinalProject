@@ -163,7 +163,7 @@ public class FindAddressFragment extends Fragment {
             public void onClick(View v) {
                 String nameLocation = binding.editName.getText().toString();
                 String longitude = binding.editLongitude.getText().toString();
-                String latitude = binding.editLongitude.getText().toString();
+                String latitude = binding.editLatitude.getText().toString();
                 // Fix conditonal lol
                 if (nameLocation.equals("")  || longitude.equals("") || latitude.equals("")) {
                     Toast.makeText(binding.getRoot().getContext(), "Please fill in all fields.", Toast.LENGTH_SHORT).show();
