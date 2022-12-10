@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.mobilapp.geotagging.databinding.FragmentExportBinding;
 
@@ -25,6 +26,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,10 +84,16 @@ public class ExportFragment extends Fragment {
 
         TagDao tagDao = db.tagDao(); // get tagDao (data access object)
         List<Tag> tags = tagDao.getAll(); // get all tags
-        Log.d(ExportFragment.class.getSimpleName(), "Loaded "+tags.size()+" tags.");
+        //Create a test tag.
+        /*if(tags.size()<10)
+        {
+            Random rng=new Random();
+            Tag newTag=new Tag("Test"+tags.size(), rng.nextDouble()*90, rng.nextDouble()*90 );
+            tagDao.insertNewTag(newTag);
+        }*/
         for(Tag x:tags)
         {
-            Log.d(ExportFragment.class.getSimpleName(), "Creating row for tag.");
+            Log.d(ExportFragment.class.getSimpleName(), "Creating row for tag with id "+x.tid);
             LinearLayout newRow=new LinearLayout(getContext());
             newRow.setOrientation(LinearLayout.HORIZONTAL);
             newRow.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -100,6 +108,7 @@ public class ExportFragment extends Fragment {
             checkBox.setVisibility(View.VISIBLE);
             newRow.addView(edit_button);
             edit_button.setVisibility(View.VISIBLE);
+            edit_button.setEnabled(true);
             edit_button.setOnClickListener((View myView)->
                     NavHostFragment.findNavController(this).navigate(ExportFragmentDirections.actionExportFragmentToEditFragment(x.tid)));
         }
@@ -119,6 +128,11 @@ public class ExportFragment extends Fragment {
         {
             ArrayList<Integer> toDelete=getSelectedTagIDs();
             //TODO: Delete selected tags.
+
+            for(Integer x:toDelete)
+            {
+                tagDao.deleteTagAtID(x);
+            }
 
             NavHostFragment.findNavController(this).navigate(ExportFragmentDirections.actionExportFragmentSelf());
         });
