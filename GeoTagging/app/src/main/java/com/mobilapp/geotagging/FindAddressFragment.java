@@ -15,6 +15,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.room.Room;
 
 import android.provider.CallLog;
@@ -55,9 +56,10 @@ public class FindAddressFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private FragmentFindAddressBinding binding;
-    private Location currentLocation;
+    private Location currentLocation = new Location("Temp Location");
     // Google's API for location services
     private FusedLocationProviderClient fusedLocationProviderClient;
+    private FindAddressFragmentDirections.ActionFindAddressFragmentToEditFragment action;
 
     // Location request
     private LocationRequest locationRequest;
@@ -115,15 +117,75 @@ public class FindAddressFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentFindAddressBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
+
+        currentLocation.setLongitude(0);
+        currentLocation.setLatitude(0);
+
         AppDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), AppDatabase.class, "database1").allowMainThreadQueries().build();
 
         TagDao tagDao = db.tagDao(); // get tagDao (data access object)
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.getContext());
 
+        updatePermission();
+
+        binding.buttonCurrentLocation.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String nameLocation = binding.editName.getText().toString();
+
+
+                if (nameLocation != "") {
+
+                    updatePermission();
+
+                    if (currentLocation.getLatitude() != 0 && currentLocation.getLongitude() != 0) {
+
+                        Tag newTag = new Tag(nameLocation, currentLocation.getLongitude(), currentLocation.getLatitude());
+
+                        tagDao.insertNewTag(newTag);
+
+                        Toast.makeText(binding.getRoot().getContext(), "Location Saved!", Toast.LENGTH_SHORT).show();
+
+                        action = FindAddressFragmentDirections.actionFindAddressFragmentToEditFragment(tagDao.getIDFromName(nameLocation));
+                        Navigation.findNavController(view).navigate(action);
+
+                    } else {
+                        Toast.makeText(binding.getRoot().getContext(), "Error grabbing location. Try again.", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(binding.getRoot().getContext(), "Enter a name for your current location.", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+        binding.buttonSaveTag.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String nameLocation = binding.editName.getText().toString();
+                String longitude = binding.editLongitude.getText().toString();
+                String latitude = binding.editLongitude.getText().toString();
+
+                
+
+
+            }
+        });
+
+        // Inflate the layout for this fragment
+        return view;
+    } // end on create view
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
+
+    private void updatePermission() {
 
         if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            currentLocationTask = fusedLocationProviderClient.getCurrentLocation(PRIORITY_HIGH_ACCURACY, new CancellationToken() {
+                currentLocationTask = fusedLocationProviderClient.getCurrentLocation(PRIORITY_HIGH_ACCURACY, new CancellationToken() {
                 @Override
                 public CancellationToken onCanceledRequested(@NonNull OnTokenCanceledListener onTokenCanceledListener) { return null; }
 
@@ -138,49 +200,15 @@ public class FindAddressFragment extends Fragment {
 
                     currentLocation = location;
 
+
                 }
             });
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 99);
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 99);
             }
         }
 
-
-
-
-        binding.buttonCurrentLocation.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-                String nameLocation = binding.editName.toString();
-                if (nameLocation == "") {
-                    Toast.makeText(binding.getRoot().getContext(), "Enter a name for your current location.", Toast.LENGTH_SHORT).show();
-
-                }
-
-                if (currentLocationTask.isSuccessful()) {
-                    currentLocation = currentLocationTask.getResult();
-                    Tag newTag = new Tag(nameLocation, currentLocation.getLongitude(), currentLocation.getLatitude());
-                    tagDao.insertNewTag(newTag);
-                } else {
-                    Toast.makeText(binding.getRoot().getContext(), "Error grabbing location. Try again.", Toast.LENGTH_SHORT).show();
-                }
-
-
-
-
-
-            }
-        });
-
-        // Inflate the layout for this fragment
-        return view;
-    } // end on create view
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
     }
 
 

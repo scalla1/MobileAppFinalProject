@@ -22,4 +22,7 @@ public interface TagDao {
     @Query("DELETE FROM Tag WHERE tid IN (:id)")
     public void deleteTagAtID(int id);
 
+    @Query("SELECT tid FROM tag WHERE tag_name IN (:name)")
+    public int getIDFromName(String name);
+
 }

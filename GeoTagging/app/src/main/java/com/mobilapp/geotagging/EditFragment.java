@@ -70,13 +70,15 @@ public class EditFragment extends Fragment {
         binding = FragmentEditBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
 
+        int id  = EditFragmentArgs.fromBundle(requireArguments()).getTagID();
+
 
         // make database (might have to pass between fragments)
         AppDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), AppDatabase.class, "database1").allowMainThreadQueries().build();
 
         TagDao tagDao = db.tagDao(); // get tagDao (data access object)
 
-        Tag tag = tagDao.getTagByID(1); // get specific tag
+        Tag tag = tagDao.getTagByID(id); // get specific tag
 
         binding.editTextTagName.setText(tag.tagName);
         binding.editTextLatitude.setText(String.valueOf(tag.latitude));
