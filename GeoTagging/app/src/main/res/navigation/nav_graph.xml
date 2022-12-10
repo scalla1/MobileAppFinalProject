@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mapFragment">
+    app:startDestination="@id/exportFragment">
 
     <fragment
         android:id="@+id/mapFragment"
@@ -31,11 +31,12 @@
             android:name="TagID"
             app:argType="integer" />
         <action
-            android:id="@+id/action_editFragment_to_mapFragment"
-            app:destination="@id/mapFragment" />
-        <action
             android:id="@+id/action_editFragment_to_exportFragment"
             app:destination="@id/exportFragment" />
+        <action
+            android:id="@+id/action_editFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/exportFragment"
@@ -51,6 +52,9 @@
         <action
             android:id="@+id/action_exportFragment_to_editFragment"
             app:destination="@id/editFragment" />
+        <action
+            android:id="@+id/action_exportFragment_self"
+            app:destination="@id/exportFragment" />
     </fragment>
     <fragment
         android:id="@+id/findAddressFragment"

@@ -3,12 +3,16 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="map">map fragment</string>
     <string name="title_activity_maps">MapsActivity</string>
-    <string name="findAddress">Enter the address of where you want to place your tag:</string>
-    <string name="findAddressHint">Enter Address</string>
-    <string name="makeTag">Make Tag</string>
+    <string name="findAddress">Enter location details and click save tag. Or click Current Location after naming to save a tag at your current Location.</string>
+    <string name="findAddressHint">Enter Name</string>
+    <string name="makeTag">Current Location</string>
     <string name="tagName">Tag Name</string>
     <string name="editFragmentTitle">Edit Tag</string>
     <string name="latitude">Latitude</string>
     <string name="longitude">Longitude</string>
     <string name="saveTag">Save Tag</string>
+    <string name="edit">Edit</string>
+    <string name="backToSelect">Back</string>
+    <string name="toMap">View on Map</string>
+    <string name="export_filepath">data/data/com.mobilapp.geotagging/export.csv</string>
 </resources>
