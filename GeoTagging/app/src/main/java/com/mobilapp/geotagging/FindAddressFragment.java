@@ -134,7 +134,7 @@ public class FindAddressFragment extends Fragment {
                 String nameLocation = binding.editName.getText().toString();
 
 
-                if (nameLocation != "") {
+                if (!nameLocation.equals("")) {
 
                     updatePermission();
 
@@ -164,9 +164,17 @@ public class FindAddressFragment extends Fragment {
                 String nameLocation = binding.editName.getText().toString();
                 String longitude = binding.editLongitude.getText().toString();
                 String latitude = binding.editLongitude.getText().toString();
+                // Fix conditonal lol
+                if (nameLocation.equals("")  || longitude.equals("") || latitude.equals("")) {
+                    Toast.makeText(binding.getRoot().getContext(), "Please fill in all fields.", Toast.LENGTH_SHORT).show();
 
-                
+                } else {
+                    Tag newTag = new Tag(nameLocation, Double.parseDouble(longitude), Double.parseDouble(latitude));
+                    tagDao.insertNewTag(newTag);
 
+                    action = FindAddressFragmentDirections.actionFindAddressFragmentToEditFragment(tagDao.getIDFromName(nameLocation));
+                    Navigation.findNavController(view).navigate(action);
+                }
 
             }
         });

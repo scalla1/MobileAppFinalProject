@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import androidx.navigation.Navigation;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -14,6 +17,7 @@ import androidx.room.RoomDatabase;
 import com.mobilapp.geotagging.databinding.FragmentEditBinding;
 import com.mobilapp.geotagging.databinding.FragmentFindAddressBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,6 +36,8 @@ public class EditFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private FragmentEditBinding binding;
+    private int id;
+    private EditFragmentDirections.ActionEditFragmentToMapFragment action;
 
     public EditFragment() {
         // Required empty public constructor
@@ -70,7 +76,9 @@ public class EditFragment extends Fragment {
         binding = FragmentEditBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
 
-        int id  = EditFragmentArgs.fromBundle(requireArguments()).getTagID();
+        //id  = EditFragmentArgs.fromBundle(requireArguments()).getTagID();
+
+        id = 1;
 
 
         // make database (might have to pass between fragments)
@@ -84,6 +92,47 @@ public class EditFragment extends Fragment {
         binding.editTextLatitude.setText(String.valueOf(tag.latitude));
         binding.editTextLongitude.setText(String.valueOf(tag.longitude));
 
+
+        binding.buttonSaveTagEdit.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String tagName = binding.editTextTagName.getText().toString();
+                String latitude = binding.editTextLatitude.getText().toString();
+                String longitude = binding.editTextLongitude.getText().toString();
+
+                if (tagName.equals("") || latitude.equals("") || longitude.equals("")) {
+                    Toast.makeText(binding.getRoot().getContext(), "Please fill in all fields.", Toast.LENGTH_SHORT).show();
+                } else {
+                    tagDao.deleteTagAtID(id);
+                    Tag newTag = new Tag(tagName, Double.parseDouble(longitude), Double.parseDouble(latitude));
+                    tagDao.insertNewTag(newTag);
+                    Toast.makeText(binding.getRoot().getContext(), "Tag Saved!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+        binding.buttonBackToSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_editFragment_to_exportFragment);
+            }
+        });
+
+        binding.buttonMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int[] idSend = {id};
+                action = EditFragmentDirections.actionEditFragmentToMapFragment(idSend);
+                Navigation.findNavController(view).navigate(action);
+            }
+        });
+
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

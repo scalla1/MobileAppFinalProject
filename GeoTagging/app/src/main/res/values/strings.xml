@@ -12,5 +12,7 @@
     <string name="longitude">Longitude</string>
     <string name="saveTag">Save Tag</string>
     <string name="edit">Edit</string>
+    <string name="backToSelect">Back</string>
+    <string name="toMap">View on Map</string>
     <string name="export_filepath">data/data/com.mobilapp.geotagging/export.csv</string>
 </resources>
