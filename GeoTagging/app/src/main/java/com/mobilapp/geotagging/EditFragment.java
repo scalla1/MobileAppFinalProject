@@ -76,10 +76,7 @@ public class EditFragment extends Fragment {
         binding = FragmentEditBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
 
-        //id  = EditFragmentArgs.fromBundle(requireArguments()).getTagID();
-
-        id = 1;
-
+        id  = EditFragmentArgs.fromBundle(requireArguments()).getTagID();
 
         // make database (might have to pass between fragments)
         AppDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), AppDatabase.class, "database1").allowMainThreadQueries().build();

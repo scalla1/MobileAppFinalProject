@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.room.Room;
 
@@ -181,6 +182,13 @@ public class ExportFragment extends Fragment {
             }
 
 
+        });
+
+        binding.newTag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_exportFragment_to_findAddressFragment);
+            }
         });
 
         return view;
