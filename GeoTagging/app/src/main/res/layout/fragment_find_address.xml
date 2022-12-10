@@ -8,15 +8,25 @@
 
 
     <Button
-        android:id="@+id/buttonConvertAddress"
+        android:id="@+id/buttonCurrentLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/makeTag"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAddress"
-        app:layout_constraintVertical_bias="0.18" />
+        app:layout_constraintTop_toBottomOf="@+id/editLatitude" />
+
+    <Button
+        android:id="@+id/buttonSaveTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/saveTag"
+        app:layout_constraintBottom_toTopOf="@+id/buttonCurrentLocation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editLatitude" />
 
     <TextView
         android:id="@+id/textEnterAddress"
@@ -25,32 +35,46 @@
         android:gravity="center"
         android:text="@string/findAddress"
         android:textSize="27dp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextAddress"
+        app:layout_constraintBottom_toTopOf="@+id/editName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.56" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <EditText
-        android:id="@+id/editTextAddress"
+        android:id="@+id/editName"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:hint="@string/findAddressHint"
+        android:hint="@string/tagName"
+        android:maxLines="1"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25"/>
+        app:layout_constraintVertical_bias="0.25" />
 
-    <TextView
-        android:id="@+id/textResult"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/editLongitude"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:hint="@string/longitude"
+        android:maxLines="1"
+        android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonConvertAddress" />
+        app:layout_constraintTop_toBottomOf="@+id/editName" />
+
+    <EditText
+        android:id="@+id/editLatitude"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/latitude"
+        android:maxLines="1"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editLongitude" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
