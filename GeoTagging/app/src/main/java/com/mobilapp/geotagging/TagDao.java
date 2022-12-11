@@ -25,4 +25,7 @@ public interface TagDao {
     @Query("SELECT tid FROM tag WHERE tag_name IN (:name)")
     public int getIDFromName(String name);
 
+    @Query("UPDATE tag SET tid =(:newID) WHERE tid IN (:oldID)")
+    public int setIDwithID(int newID, int oldID);
+
 }

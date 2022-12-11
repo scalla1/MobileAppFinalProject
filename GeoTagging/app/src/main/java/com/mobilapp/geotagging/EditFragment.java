@@ -39,6 +39,7 @@ public class EditFragment extends Fragment {
     private int id;
     private EditFragmentDirections.ActionEditFragmentToMapFragment action;
 
+
     public EditFragment() {
         // Required empty public constructor
     }
@@ -99,9 +100,12 @@ public class EditFragment extends Fragment {
                 if (tagName.equals("") || latitude.equals("") || longitude.equals("")) {
                     Toast.makeText(binding.getRoot().getContext(), "Please fill in all fields.", Toast.LENGTH_SHORT).show();
                 } else {
+                    int tempID;
                     tagDao.deleteTagAtID(id);
                     Tag newTag = new Tag(tagName, Double.parseDouble(longitude), Double.parseDouble(latitude));
                     tagDao.insertNewTag(newTag);
+                    tempID = tagDao.getIDFromName(tagName);
+                    tagDao.setIDwithID(id, tempID);
                     Toast.makeText(binding.getRoot().getContext(), "Tag Saved!", Toast.LENGTH_SHORT).show();
                 }
 
