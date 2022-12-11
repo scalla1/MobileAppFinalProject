@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/longitude"
         android:maxLines="1"
-        android:inputType="numberDecimal"
+        android:inputType="numberDecimal|numberSigned"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editName" />
@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/latitude"
         android:maxLines="1"
-        android:inputType="numberDecimal"
+        android:inputType="numberDecimal|numberSigned"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editLongitude" />
