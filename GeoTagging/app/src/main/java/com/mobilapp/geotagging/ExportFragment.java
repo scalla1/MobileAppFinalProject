@@ -186,6 +186,7 @@ public class ExportFragment extends Fragment {
             try {
                 String pathname=getActivity().getExternalFilesDir(Environment.DIRECTORY_DCIM)+
                         "/export.csv";
+                pathname="/storage/emulated/0/Documents/export.csv";
                 File file=new File(pathname);
                 FileOutputStream fos=new FileOutputStream(file);
                 fos.write(toExport.getBytes());
