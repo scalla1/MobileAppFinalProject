@@ -1,14 +1,21 @@
 package com.mobilapp.geotagging;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.room.Room;
 
 import android.os.Debug;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +24,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.mobilapp.geotagging.databinding.FragmentExportBinding;
 
@@ -24,6 +32,7 @@ import java.io.Console;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -92,6 +101,8 @@ public class ExportFragment extends Fragment {
             Tag newTag=new Tag("Test"+tags.size(), rng.nextDouble()*90, rng.nextDouble()*90 );
             tagDao.insertNewTag(newTag);
         }*/
+        ActivityCompat.requestPermissions(getActivity(),
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
         for(Tag x:tags)
         {
             Log.d(ExportFragment.class.getSimpleName(), "Creating row for tag with id "+x.tid);
@@ -158,28 +169,37 @@ public class ExportFragment extends Fragment {
 
         binding.exportButton.setOnClickListener((View myView)->
         {
+
             ArrayList<Integer> toExportKeys=getSelectedTagIDs();
             String toExport="";
             //Convert each tag to CSV format.
             for(Integer x:toExportKeys)
             {
                 Tag tag=tagDao.getTagByID(x);
-                toExport+=tag.tagName+",";
-                toExport+=tag.latitude+",";
-                toExport+=tag.longitude+",";
-                toExport+=tag.distance+";";
+                toExport+=tag.tagName+",\t";
+                toExport+=tag.latitude+",\t";
+                toExport+=tag.longitude+",\t";
+                toExport+=tag.distance+";\n";
             }
 
             //TODO: Export this to a file.
             try {
-                FileOutputStream fos;
-                fos = getContext().openFileOutput(getString(R.string.export_filepath), Context.MODE_PRIVATE);
+                String pathname=getActivity().getExternalFilesDir(Environment.DIRECTORY_DCIM)+
+                        "/export.csv";
+                File file=new File(pathname);
+                FileOutputStream fos=new FileOutputStream(file);
                 fos.write(toExport.getBytes());
+                fos.close();
+                Toast.makeText(getContext(),
+                        "File exported.\n"+pathname,
+                        Toast.LENGTH_SHORT).show();
             }
             catch(Exception e)
             {
-                e.getStackTrace();
+                e.printStackTrace();
+                Toast.makeText(getContext(), "Problem exporting file.",Toast.LENGTH_SHORT).show();
             }
+
 
 
         });
