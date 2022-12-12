@@ -1,11 +1,7 @@
 package com.mobilapp.geotagging;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 
 import androidx.core.app.ActivityCompat;
@@ -14,7 +10,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.room.Room;
 
-import android.os.Debug;
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,15 +18,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
 import com.mobilapp.geotagging.databinding.FragmentExportBinding;
 
 
+import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -155,8 +149,7 @@ public class ExportFragment extends Fragment {
 
             //TODO: Export this to a file.
             try {
-                String pathname=getActivity().getExternalFilesDir(Environment.DIRECTORY_DCIM)+
-                        "/export.csv";
+                String pathname;
                 pathname="/storage/emulated/0/Documents/export.csv";
                 File file=new File(pathname);
                 FileOutputStream fos=new FileOutputStream(file);
