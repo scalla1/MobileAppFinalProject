@@ -18,11 +18,6 @@
             app:destination="@id/editFragment" />
     </fragment>
     <fragment
-        android:id="@+id/selectFragment"
-        android:name="com.mobilapp.geotagging.SelectFragment"
-        android:label="fragment_select"
-        tools:layout="@layout/fragment_select" />
-    <fragment
         android:id="@+id/editFragment"
         android:name="com.mobilapp.geotagging.EditFragment"
         android:label="fragment_edit"
@@ -65,5 +60,10 @@
             android:id="@+id/action_findAddressFragment_to_editFragment"
             app:destination="@id/editFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.mobilapp.geotagging.HelpFragment"
+        android:label="fragment_help"
+        tools:layout="@layout/fragment_help" />
 
 </navigation>

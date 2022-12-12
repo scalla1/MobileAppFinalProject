@@ -1,80 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FindAddressFragment">
 
-
-    <Button
-        android:id="@+id/buttonCurrentLocation"
+    <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/makeTag"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editLatitude" />
+        android:layout_gravity="center"
+        android:contentDescription="@string/imageBackGround"
+        android:scaleType="centerCrop"
+        tools:src="@tools:sample/avatars"
+        android:src="@drawable/appthemebackground"/>
 
-    <Button
-        android:id="@+id/buttonSaveTag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/saveTag"
-        app:layout_constraintBottom_toTopOf="@+id/buttonCurrentLocation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editLatitude" />
-
-    <TextView
-        android:id="@+id/textEnterAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/findAddress"
-        android:textSize="27dp"
-        app:layout_constraintBottom_toTopOf="@+id/editName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
-    <EditText
-        android:id="@+id/editName"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/tagName"
-        android:maxLines="1"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25" />
+        <Button
+            android:id="@+id/buttonCurrentLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/makeTag"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editLatitude" />
 
-    <EditText
-        android:id="@+id/editLongitude"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/longitude"
-        android:maxLines="1"
-        android:inputType="numberDecimal|numberSigned"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editName" />
+        <Button
+            android:id="@+id/buttonSaveTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/saveTag"
+            app:layout_constraintBottom_toTopOf="@+id/buttonCurrentLocation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editLatitude" />
 
-    <EditText
-        android:id="@+id/editLatitude"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/latitude"
-        android:maxLines="1"
-        android:inputType="numberDecimal|numberSigned"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editLongitude" />
+        <TextView
+            android:id="@+id/textEnterAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/findAddress"
+            android:textAlignment="center"
+            android:textSize="27sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/editName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/editName"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/tagName"
+            android:inputType="text"
+            android:maxLines="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.25"
+            tools:ignore="TouchTargetSizeCheck,TextContrastCheck"
+            android:autofillHints="" />
+
+        <EditText
+            android:id="@+id/editLongitude"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/longitude"
+            android:inputType="numberDecimal|numberSigned"
+            android:maxLines="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editName"
+            tools:ignore="TouchTargetSizeCheck,TextContrastCheck"
+            android:autofillHints="" />
+
+        <EditText
+            android:id="@+id/editLatitude"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:hint="@string/latitude"
+            android:inputType="numberDecimal|numberSigned"
+            android:maxLines="1"
+            android:textColorHint="#757575"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editLongitude"
+            tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

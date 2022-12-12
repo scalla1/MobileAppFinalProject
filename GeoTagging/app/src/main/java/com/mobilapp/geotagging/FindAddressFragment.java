@@ -6,8 +6,6 @@ import static com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.location.Geocoder;
-import android.location.Address;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,7 +16,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.room.Room;
 
-import android.provider.CallLog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,33 +25,15 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.CancellationToken;
-import com.google.android.gms.tasks.CancellationTokenSource;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.OnTokenCanceledListener;
 import com.google.android.gms.tasks.Task;
-import com.mobilapp.geotagging.databinding.ActivityMainBinding;
 import com.mobilapp.geotagging.databinding.FragmentFindAddressBinding;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FindAddressFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FindAddressFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private FragmentFindAddressBinding binding;
     private Location currentLocation = new Location("Temp Location");
     // Google's API for location services
@@ -85,31 +64,11 @@ public class FindAddressFragment extends Fragment {
         }
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FindAddressFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FindAddressFragment newInstance(String param1, String param2) {
-        FindAddressFragment fragment = new FindAddressFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override

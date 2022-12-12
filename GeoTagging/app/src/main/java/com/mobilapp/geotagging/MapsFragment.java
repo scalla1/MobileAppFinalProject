@@ -6,16 +6,20 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.room.Room;
 
+import android.graphics.Color;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -24,27 +28,15 @@ import java.util.List;
 public class MapsFragment extends Fragment {
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
+
         @Override
         public void onMapReady(GoogleMap googleMap) {
-
             AppDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), AppDatabase.class, "database1").allowMainThreadQueries().build();
             TagDao tagDao = db.tagDao();
-            //Tag thisTag = new Tag( "sydney", 151, -34); //make tag with parameters
-            //Tag thisTag2 = new Tag( "test",  111,  -54); //make tag with parameters
-            //tagDao.insertNewTag(thisTag);
-            //tagDao.insertNewTag(thisTag2);
             List<Tag> tags = tagDao.getAll(); // get all tags
+            CircleOptions circleOptions = new CircleOptions();
 
-
+            float[] results = new float[1];
             int[] arrId;
             arrId = MapsFragmentArgs.fromBundle(requireArguments()).getTagIDs();
 
@@ -52,23 +44,43 @@ public class MapsFragment extends Fragment {
                 for(int i=0; i< tags.size(); i++){
                     Tag tag = tags.get(i);
                     googleMap.addMarker(new MarkerOptions().position(new LatLng(tag.latitude, tag.longitude)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title(tag.tagName));
+                    circleOptions.center(new LatLng(tag.latitude, tag.longitude));
+                    circleOptions.radius(10000); //distance in meters
+                    circleOptions.strokeColor(Color.BLACK);
+                    circleOptions.fillColor(0x30ff0000);
+                    circleOptions.strokeWidth(2);
+                    googleMap.addCircle(circleOptions);
                     googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(tag.latitude, tag.longitude)));
+
+                    for (int j=1; j< tags.size(); j++){
+                        Tag tag2 = tags.get(j);
+                        if(tag != tag2)
+                            Location.distanceBetween(tag.latitude,tag.longitude,tag2.latitude,tag2.longitude,results);
+                        if(results[0] <= 10000){
+                            String str = tag.tagName + " is within 10km " + tag2.tagName;
+                            Toast.makeText(getActivity().getApplicationContext(), str, Toast.LENGTH_LONG).show();
+                        }
+                    }
                 }
+
+
             }
             else{
                 for(int i=0; i<arrId.length; i++){
                     Tag tag = tagDao.getTagByID(arrId[i]); // get specific tag
                     LatLng pos = new LatLng(tag.latitude, tag.longitude);
                     googleMap.addMarker(new MarkerOptions().position(pos).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title(tag.tagName));
+                    circleOptions.center(new LatLng(tag.latitude, tag.longitude));
+                    circleOptions.radius(10000);
+                    circleOptions.strokeColor(Color.BLACK);
+                    circleOptions.fillColor(0x30ff0000);
+                    circleOptions.strokeWidth(2);
+                    googleMap.addCircle(circleOptions);
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(tag.latitude, tag.longitude)));
                 }
             }
 
 
-            //LatLng sydney = new LatLng(-34, 151);
-            //LatLng test = new LatLng(-54, 111);
-            //googleMap.addMarker(new MarkerOptions().position(sydney).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).title("Marker in Sydney"));
-            //googleMap.addMarker(new MarkerOptions().position(test).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title("test"));
-            //googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         }
     };
 

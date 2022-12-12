@@ -26,53 +26,25 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+
 import com.mobilapp.geotagging.databinding.FragmentExportBinding;
 
-import java.io.Console;
-import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ExportFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class ExportFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-    // TODO: Rename and change types of parameters
-
     private HashMap<CheckBox,Integer> databaseKeys;
-
     private FragmentExportBinding binding;
 
     public ExportFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ExportFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ExportFragment newInstance(String param1, String param2) {
-        ExportFragment fragment = new ExportFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,12 +60,12 @@ public class ExportFragment extends Fragment {
         binding=FragmentExportBinding.inflate(getLayoutInflater());
 
         View view=binding.getRoot();
-        //TODO: Populate tags_display with elements.
         //> Add the checkbox of each tag display to databaseKeys, mapped to the appropriate tag id.
         AppDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), AppDatabase.class, "database1").allowMainThreadQueries().build();
 
         TagDao tagDao = db.tagDao(); // get tagDao (data access object)
         List<Tag> tags = tagDao.getAll(); // get all tags
+
         //Create a test tag.
         /*if(tags.size()<10)
         {
@@ -103,6 +75,7 @@ public class ExportFragment extends Fragment {
         }*/
         ActivityCompat.requestPermissions(getActivity(),
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
+
         for(Tag x:tags)
         {
             Log.d(ExportFragment.class.getSimpleName(), "Creating row for tag with id "+x.tid);
@@ -126,7 +99,6 @@ public class ExportFragment extends Fragment {
         }
 
 
-        //TODO: Add click listeners to each button.
         binding.allButton.setOnClickListener((View myView)->
                 {
                     for(CheckBox x:databaseKeys.keySet())
@@ -139,7 +111,6 @@ public class ExportFragment extends Fragment {
         binding.deleteButton.setOnClickListener((View myView) ->
         {
             ArrayList<Integer> toDelete=getSelectedTagIDs();
-            //TODO: Delete selected tags.
 
             for(Integer x:toDelete)
             {
