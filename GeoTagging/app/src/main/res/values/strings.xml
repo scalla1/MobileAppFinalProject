@@ -7,13 +7,33 @@
     <string name="findAddressHint">Enter Name</string>
     <string name="makeTag">Current Location</string>
     <string name="tagName">Tag Name</string>
-    <string name="editFragmentTitle">Edit Tag</string>
+    <string name="editFragmentTitle">Review Tag Information</string>
     <string name="latitude">Latitude</string>
     <string name="longitude">Longitude</string>
     <string name="saveTag">Save Tag</string>
     <string name="edit">Edit</string>
     <string name="backToSelect">Back</string>
     <string name="toMap">View on Map</string>
-    <string name="newTag">New Tag</string>
     <string name="export_filepath">data/data/com.mobilapp.geotagging/export.csv</string>
+
+
+    <string name="addTag">Add Tag</string>
+    <string name="checkAll">Check All</string>
+    <string name="export">Export</string>
+    <string name="delete">Delete</string>
+    <string name="showMap">Show Map</string>
+    <string name="imageBackGround"> background</string>
+    <string name="help">Help</string>
+
+
+    <string name="howToUse">How To Use</string>
+    <string name="explanation">press "Add Tag" to add a new tag to the database</string>
+    <string name="explanation2">either fill all necessary information for the tags or give it a name and press "current location" to save your current location</string>
+    <string name="explanation3">press "Delete" to delete all marked tags</string>
+    <string name="explanation4">press "Check all" to check all tags</string>
+    <string name="explanation5">press "Export" to export tags</string>
+    <string name="explanation6">press "Show Map" to view tags displayed on map</string>
+
+
+
 </resources>
