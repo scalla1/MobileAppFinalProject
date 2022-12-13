@@ -54,11 +54,12 @@ public class MapsFragment extends Fragment {
 
                     for (int j=1; j< tags.size(); j++){
                         Tag tag2 = tags.get(j);
-                        if(tag != tag2)
-                            Location.distanceBetween(tag.latitude,tag.longitude,tag2.latitude,tag2.longitude,results);
-                        if(results[0] <= 10000){
-                            String str = tag.tagName + " is within 10km " + tag2.tagName;
-                            Toast.makeText(getActivity().getApplicationContext(), str, Toast.LENGTH_LONG).show();
+                        if(!tag.tagName.equals(tag2.tagName)) {
+                            Location.distanceBetween(tag.latitude, tag.longitude, tag2.latitude, tag2.longitude, results);
+                            if (results[0] <= 10000) {
+                                String str = tag.tagName + " is within 10km " + tag2.tagName;
+                                Toast.makeText(getActivity().getApplicationContext(), str, Toast.LENGTH_LONG).show();
+                            }
                         }
                     }
                 }
@@ -77,6 +78,17 @@ public class MapsFragment extends Fragment {
                     circleOptions.strokeWidth(2);
                     googleMap.addCircle(circleOptions);
                     googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(tag.latitude, tag.longitude)));
+
+                    for (int j=1; j< tags.size(); j++){
+                        Tag tag2 = tags.get(j);
+                        if(!tag.tagName.equals(tag2.tagName)) {
+                            Location.distanceBetween(tag.latitude, tag.longitude, tag2.latitude, tag2.longitude, results);
+                            if (results[0] <= 10000) {
+                                String str = tag.tagName + " is within 10km " + tag2.tagName;
+                                Toast.makeText(getActivity().getApplicationContext(), str, Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }
                 }
             }
 
